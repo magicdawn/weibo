@@ -19,6 +19,10 @@
 - https://github.com/Chilfish/Weibo-archiver
 - https://github.com/yukinotech/WeiboDL
 
+## Dev
+
+- `data/weibo.db` 空 sqlite db 生成: `pnpm drizzle-kit push`
+
 ## Changelog
 
 [CHANGELOG.md](CHANGELOG.md)
