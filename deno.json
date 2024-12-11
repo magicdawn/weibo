@@ -1,0 +1,11 @@
+{
+  "unstable": ["sloppy-imports"],
+  "compilerOptions": {
+    "lib": ["es2023", "dom", "deno.ns", "deno.window"]
+  },
+  "lint": {
+    "rules": {
+      "exclude": ["no-sloppy-imports"]
+    }
+  }
+}

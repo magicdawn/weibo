@@ -1,10 +1,9 @@
-#!/usr/bin/env tsx
+#!/usr/bin/env deno -A --unstable-sloppy-imports
 
-import './libs'
 import { browser, startPptr, WEIBO_COOKIE } from './pptr'
 import { delay } from 'es-toolkit'
 import ms from 'ms'
-import path from 'path'
+import path from 'node:path'
 import { fse } from './libs'
 import { initDb } from './db/db'
 import { eq } from 'drizzle-orm'
@@ -12,6 +11,7 @@ import { userTable } from './db/schema'
 import { getUserProfile, transformUser } from './api/user-info'
 import createDebug from 'debug'
 import { updateMblogFor } from './update'
+import process from 'node:process'
 
 createDebug.enable('weibo:*')
 createDebug.enable('weibo:*,-weibo:api:detail:*')
@@ -28,7 +28,7 @@ async function ensureCookie() {
 async function updateFor(uid: number) {
   const dbfile = path.resolve('./weibo.db')
   if (!fse.existsSync(dbfile)) {
-    const templateDBFile = path.join(import.meta.dirname, '../data/weibo.db')
+    const templateDBFile = path.join(import.meta.dirname || '', '../data/weibo.db')
     fse.copyFileSync(templateDBFile, dbfile)
   }
 

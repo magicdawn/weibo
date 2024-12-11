@@ -1,4 +1,4 @@
-import path from 'path'
+import path from 'node:path'
 import type { TransformedMblog } from '../api/mblog'
 import type { UserSelect } from '../db/db'
 import { dayjs } from '../libs'
@@ -7,6 +7,7 @@ import dl from 'dl-vampire'
 import { WEIBO_COOKIE } from '../pptr'
 import logSymbols from 'log-symbols'
 import pmap from 'promise.map'
+import process from 'node:process'
 
 export async function downloadMblogImgs(user: UserSelect, mblog: TransformedMblog) {
   if (mblog.isRepost) {

@@ -1,4 +1,4 @@
-import path from 'path'
+import path from 'node:path'
 import { launch, type Browser } from 'puppeteer-core'
 import type {} from 'typed-query-selector'
 import { appPaths } from './common'
@@ -22,7 +22,7 @@ export async function startPptr() {
     waitUntil: 'load',
   })
 
-  async function logined() {
+  function logined() {
     return page.evaluate(() => {
       const loginButton = Array.from(
         document.querySelectorAll('.woo-box-flex > a[class*=LoginBtn_btn_]'),
