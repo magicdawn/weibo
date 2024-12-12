@@ -1,5 +1,5 @@
 import path from 'path'
-import { launch, type Browser } from 'puppeteer-core'
+import { launch, type Browser, type LaunchOptions } from 'puppeteer-core'
 import type {} from 'typed-query-selector'
 import { appPaths, baseDebug } from './common'
 import {
@@ -16,7 +16,7 @@ export let SERVER_VERSION = ''
 
 export let browser: Browser
 
-export async function startPptr() {
+export async function startPptr(moreOptions: Partial<LaunchOptions> = {}) {
   let executablePath: string
   if (process.env.PPTR_EXECUTABLE_PATH) {
     executablePath = process.env.PPTR_EXECUTABLE_PATH
@@ -28,14 +28,15 @@ export async function startPptr() {
   }
   const userDataDir = path.join(appPaths.data, 'pptr-data')
 
-  debug('launch: executablePath = %s, userDataDir = %s', executablePath, userDataDir)
-  browser = await launch({
+  const launchOptions: LaunchOptions = {
     browser: 'chrome',
     executablePath,
     userDataDir,
-    headless: false,
     defaultViewport: null,
-  })
+    ...moreOptions,
+  }
+  debug('launchOptions: %O', launchOptions)
+  browser = await launch(launchOptions)
 
   const page = await browser.newPage()
   await page.goto('https://weibo.com', {

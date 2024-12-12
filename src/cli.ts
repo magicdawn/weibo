@@ -22,13 +22,14 @@ createDebug.enable('weibo:*,-weibo:api:detail:*')
 // - update all scheduleUpdate = true users
 
 async function ensureCookie() {
-  await startPptr()
+  await startPptr({ headless: true })
+  await browser.close()
   if (!WEIBO_COOKIE) {
+    await startPptr({ headless: false })
     console.error('cookie not found, please login first, then restart the app')
     await delay(ms('1d')) // wait login, never go next
     process.exit(1)
   }
-  await browser.close()
 }
 
 async function updateFor(uid: number) {
