@@ -1,6 +1,5 @@
 #!/usr/bin/env tsx
 
-import './libs'
 import { browser, startPptr, WEIBO_COOKIE } from './pptr'
 import { delay } from 'es-toolkit'
 import ms from 'ms'
@@ -21,6 +20,7 @@ async function ensureCookie() {
   if (!WEIBO_COOKIE) {
     console.error('cookie not found, please login first, then restart the app')
     await delay(ms('1d')) // wait login, never go next
+    process.exit(1)
   }
   await browser.close()
 }

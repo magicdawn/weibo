@@ -1,7 +1,14 @@
 import path from 'path'
 import { launch, type Browser } from 'puppeteer-core'
 import type {} from 'typed-query-selector'
-import { appPaths } from './common'
+import { appPaths, baseDebug } from './common'
+import {
+  ChromeReleaseChannel,
+  computeSystemExecutablePath,
+  Browser as SystemBrowser,
+} from '@puppeteer/browsers'
+
+const debug = baseDebug.extend('pptr')
 
 export let WEIBO_COOKIE = ''
 export let CLIENT_VERSION = ''
@@ -10,13 +17,21 @@ export let SERVER_VERSION = ''
 export let browser: Browser
 
 export async function startPptr() {
+  const executablePath = computeSystemExecutablePath({
+    browser: SystemBrowser.CHROME,
+    channel: ChromeReleaseChannel.STABLE,
+  })
+  const userDataDir = path.join(appPaths.data, 'pptr-data')
+
+  debug('launch: executablePath = %s, userDataDir = %s', executablePath, userDataDir)
   browser = await launch({
     browser: 'chrome',
-    executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
-    userDataDir: path.join(appPaths.data, 'pptr-data'),
+    executablePath,
+    userDataDir,
     headless: false,
     defaultViewport: null,
   })
+
   const page = await browser.newPage()
   await page.goto('https://weibo.com', {
     waitUntil: 'load',
