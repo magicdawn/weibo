@@ -10,6 +10,9 @@ importers:
       '@keyv/sqlite':
         specifier: ^4.0.1
         version: 4.0.1
+      '@puppeteer/browsers':
+        specifier: ^2.6.1
+        version: 2.6.1
       axios:
         specifier: ^1.7.9
         version: 1.7.9(debug@4.4.0)
@@ -26,8 +29,8 @@ importers:
         specifier: ^2.1.2
         version: 2.1.2
       drizzle-orm:
-        specifier: ^0.38.0
-        version: 0.38.0(@types/better-sqlite3@7.6.12)(better-sqlite3@11.7.0)(sqlite3@5.1.7)
+        specifier: ^0.38.1
+        version: 0.38.1(@types/better-sqlite3@7.6.12)(better-sqlite3@11.7.0)(sqlite3@5.1.7)
       env-paths:
         specifier: ^3.0.0
         version: 3.0.0
@@ -41,8 +44,8 @@ importers:
         specifier: ^11.2.0
         version: 11.2.0
       keyv:
-        specifier: ^5.2.1
-        version: 5.2.1
+        specifier: ^5.2.2
+        version: 5.2.2
       log-symbols:
         specifier: ^7.0.0
         version: 7.0.0
@@ -56,8 +59,8 @@ importers:
         specifier: ^6.5.0
         version: 6.5.0
       puppeteer-core:
-        specifier: ^23.10.2
-        version: 23.10.2
+        specifier: ^23.10.4
+        version: 23.10.4
       radash:
         specifier: ^12.1.0
         version: 12.1.0
@@ -81,8 +84,8 @@ importers:
         specifier: ^0.7.34
         version: 0.7.34
       '@types/node':
-        specifier: ^22.10.1
-        version: 22.10.1
+        specifier: ^22.10.2
+        version: 22.10.2
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.18.0
         version: 8.18.0(@typescript-eslint/parser@8.18.0(eslint@9.16.0)(typescript@5.7.2))(eslint@9.16.0)(typescript@5.7.2)
@@ -91,7 +94,7 @@ importers:
         version: 8.18.0(eslint@9.16.0)(typescript@5.7.2)
       '@vitest/coverage-v8':
         specifier: ^2.1.8
-        version: 2.1.8(vitest@2.1.8(@types/node@22.10.1))
+        version: 2.1.8(vitest@2.1.8(@types/node@22.10.2))
       drizzle-kit:
         specifier: ^0.30.0
         version: 0.30.0
@@ -105,8 +108,8 @@ importers:
         specifier: ^9.1.7
         version: 9.1.7
       lint-staged:
-        specifier: ^15.2.10
-        version: 15.2.10
+        specifier: ^15.2.11
+        version: 15.2.11
       prettier:
         specifier: ^3.4.2
         version: 3.4.2
@@ -118,7 +121,7 @@ importers:
         version: 5.7.2
       vitest:
         specifier: ^2.1.8
-        version: 2.1.8(@types/node@22.10.1)
+        version: 2.1.8(@types/node@22.10.2)
 
 packages:
   '@ampproject/remapping@2.3.0':
@@ -1000,10 +1003,10 @@ packages:
       }
     engines: { node: '>=14' }
 
-  '@puppeteer/browsers@2.6.0':
+  '@puppeteer/browsers@2.6.1':
     resolution:
       {
-        integrity: sha512-jESwj3APl78YUWHf28s2EjL0OIxcvl1uLU6Ge68KQ9ZXNsekUcbdr9dCi6vEO8naXS18lWXCV56shVkPStzXSQ==,
+        integrity: sha512-aBSREisdsGH890S2rQqK82qmQYU3uFpSH8wcZWHgHzl3LfzsxAKbLNiAG9mO8v1Y0UICBeClICxPJvyr0rcuxg==,
       }
     engines: { node: '>=18' }
     hasBin: true
@@ -1369,10 +1372,10 @@ packages:
         integrity: sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==,
       }
 
-  '@types/node@22.10.1':
+  '@types/node@22.10.2':
     resolution:
       {
-        integrity: sha512-qKgsUwfHZV2WCWLAnVP1JqnpE6Im6h3Y0+fYgMTasNQ7V++CBX5OT1as0g0f+OyubbFqhf6XVNIsmN4IIhEgGQ==,
+        integrity: sha512-Xxr6BBRCAOQixvonOye19wnzyDiUtTeqldOOmj3CkeblonbccA12PFwlufvRdrpjXxqnmUaeiU5EOA+7s5diUQ==,
       }
 
   '@types/yauzl@2.10.3':
@@ -1951,18 +1954,6 @@ packages:
         integrity: sha512-oaMBel6gjolK862uaPQOVTA7q3TZhuSvuMQAAglQDOWYO9A91IrAOUJEyKVlqJlHE0vq5p5UXxzdPfMH/x6xNg==,
       }
 
-  debug@4.3.7:
-    resolution:
-      {
-        integrity: sha512-Er2nc/H7RrMXZBFCEim6TCmMk02Z8vLC2Rbi1KEBggpo0fS6l0S1nnapwmIi3yW/+GOJap1Krg4w0Hg80oCqgQ==,
-      }
-    engines: { node: '>=6.0' }
-    peerDependencies:
-      supports-color: '*'
-    peerDependenciesMeta:
-      supports-color:
-        optional: true
-
   debug@4.4.0:
     resolution:
       {
@@ -2055,10 +2046,10 @@ packages:
       }
     hasBin: true
 
-  drizzle-orm@0.38.0:
+  drizzle-orm@0.38.1:
     resolution:
       {
-        integrity: sha512-Ev1UYKOUxiVwLZZfos4hoNDMDkp313FqF0CHelhR+BeOdb76z/a6pKF6SgYQSrmj6EXH4cy6QIkmuxl2KIFW0A==,
+        integrity: sha512-TpOzNrPGy7dl0/uP9vKD6ATzp9noJaRYhOYqtOCKxxwSmZqrPxN4SW5kWawVUIcbSd2lkbDCdZue+gtVNLmQsg==,
       }
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
@@ -2992,10 +2983,10 @@ packages:
         integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==,
       }
 
-  keyv@5.2.1:
+  keyv@5.2.2:
     resolution:
       {
-        integrity: sha512-tpIgCaY02VCW2Pz0zAn4guyct+IeH6Mb5wZdOvpe4oqXeQOJO0C3Wo8fTnf7P3ZD83Vr9kghbkNmzG3lTOhy/A==,
+        integrity: sha512-CRPP4Sq5ofbUE8s4FOirFmDgHeKZFRrH/8+WOUNvLJiMIplRMfnMjxmbaDb+zVd7ex0gGAWqMhZHfcL2u6PrNQ==,
       }
 
   levn@0.4.1:
@@ -3012,10 +3003,10 @@ packages:
       }
     engines: { node: '>=14' }
 
-  lint-staged@15.2.10:
+  lint-staged@15.2.11:
     resolution:
       {
-        integrity: sha512-5dY5t743e1byO19P9I4b3x8HJwalIznL5E1FWYnU6OWw33KxNBSLAc6Cy7F2PsFEO8FKnLwjwm5hx7aMF0jzZg==,
+        integrity: sha512-Ev6ivCTYRTGs9ychvpVw35m/bcNDuBN+mnTeObCL5h+boS5WzBEC6LHI4I9F/++sZm1m+J2LEiy0gxL/R9TBqQ==,
       }
     engines: { node: '>=18.12.0' }
     hasBin: true
@@ -3631,10 +3622,10 @@ packages:
       }
     engines: { node: '>=6' }
 
-  puppeteer-core@23.10.2:
+  puppeteer-core@23.10.4:
     resolution:
       {
-        integrity: sha512-SEPjEbhPxRlzjGRCs8skwfnzFQj6XrZZmoMz0JIQbanj0fBpQ5HOGgyQTyh4YOW33q+461plJc5GfsQ+ErVBgQ==,
+        integrity: sha512-pQAY7+IFAndWDkDodsQGguW1/ifV5OMlGXJDspwtK49Asb7poJZ/V5rXJxVSpq57bWrJasjQBZ1X27z1oWVq4Q==,
       }
     engines: { node: '>=18' }
 
@@ -4349,10 +4340,10 @@ packages:
         integrity: sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==,
       }
 
-  yaml@2.5.1:
+  yaml@2.6.1:
     resolution:
       {
-        integrity: sha512-bLQOjaX/ADgQ20isPJRvF0iRUHIxVhYvr53Of7wGcWlO2jvtUlH5m87DsmulFVxRpNLOnI4tB6p/oh8D7kpn9Q==,
+        integrity: sha512-7r0XPzioN/Q9kXBro/XPnA6kznR73DHq+GXh5ON7ZozRO6aMjbmiBuKste2wslTFkC5d1dw0GooOCepZXJ2SAg==,
       }
     engines: { node: '>= 14' }
     hasBin: true
@@ -4759,7 +4750,7 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
-  '@puppeteer/browsers@2.6.0':
+  '@puppeteer/browsers@2.6.1':
     dependencies:
       debug: 4.4.0
       extract-zip: 2.0.1
@@ -4896,7 +4887,7 @@ snapshots:
 
   '@types/better-sqlite3@7.6.12':
     dependencies:
-      '@types/node': 22.10.1
+      '@types/node': 22.10.2
 
   '@types/debug@4.1.12':
     dependencies:
@@ -4907,7 +4898,7 @@ snapshots:
   '@types/fs-extra@11.0.4':
     dependencies:
       '@types/jsonfile': 6.1.4
-      '@types/node': 22.10.1
+      '@types/node': 22.10.2
 
   '@types/http-cache-semantics@4.0.4': {}
 
@@ -4915,17 +4906,17 @@ snapshots:
 
   '@types/jsonfile@6.1.4':
     dependencies:
-      '@types/node': 22.10.1
+      '@types/node': 22.10.2
 
   '@types/ms@0.7.34': {}
 
-  '@types/node@22.10.1':
+  '@types/node@22.10.2':
     dependencies:
       undici-types: 6.20.0
 
   '@types/yauzl@2.10.3':
     dependencies:
-      '@types/node': 22.10.1
+      '@types/node': 22.10.2
     optional: true
 
   '@typescript-eslint/eslint-plugin@8.18.0(@typescript-eslint/parser@8.18.0(eslint@9.16.0)(typescript@5.7.2))(eslint@9.16.0)(typescript@5.7.2)':
@@ -5005,7 +4996,7 @@ snapshots:
       '@typescript-eslint/types': 8.18.0
       eslint-visitor-keys: 4.2.0
 
-  '@vitest/coverage-v8@2.1.8(vitest@2.1.8(@types/node@22.10.1))':
+  '@vitest/coverage-v8@2.1.8(vitest@2.1.8(@types/node@22.10.2))':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@bcoe/v8-coverage': 0.2.3
@@ -5019,7 +5010,7 @@ snapshots:
       std-env: 3.8.0
       test-exclude: 7.0.1
       tinyrainbow: 1.2.0
-      vitest: 2.1.8(@types/node@22.10.1)
+      vitest: 2.1.8(@types/node@22.10.2)
     transitivePeerDependencies:
       - supports-color
 
@@ -5030,13 +5021,13 @@ snapshots:
       chai: 5.1.2
       tinyrainbow: 1.2.0
 
-  '@vitest/mocker@2.1.8(vite@5.4.11(@types/node@22.10.1))':
+  '@vitest/mocker@2.1.8(vite@5.4.11(@types/node@22.10.2))':
     dependencies:
       '@vitest/spy': 2.1.8
       estree-walker: 3.0.3
       magic-string: 0.30.14
     optionalDependencies:
-      vite: 5.4.11(@types/node@22.10.1)
+      vite: 5.4.11(@types/node@22.10.2)
 
   '@vitest/pretty-format@2.1.8':
     dependencies:
@@ -5331,10 +5322,6 @@ snapshots:
 
   dayjs@1.11.13: {}
 
-  debug@4.3.7:
-    dependencies:
-      ms: 2.1.3
-
   debug@4.4.0:
     dependencies:
       ms: 2.1.3
@@ -5387,7 +5374,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.38.0(@types/better-sqlite3@7.6.12)(better-sqlite3@11.7.0)(sqlite3@5.1.7):
+  drizzle-orm@0.38.1(@types/better-sqlite3@7.6.12)(better-sqlite3@11.7.0)(sqlite3@5.1.7):
     optionalDependencies:
       '@types/better-sqlite3': 7.6.12
       better-sqlite3: 11.7.0
@@ -5966,7 +5953,7 @@ snapshots:
     dependencies:
       json-buffer: 3.0.1
 
-  keyv@5.2.1:
+  keyv@5.2.2:
     dependencies:
       '@keyv/serialize': 1.0.1
 
@@ -5977,18 +5964,18 @@ snapshots:
 
   lilconfig@3.1.3: {}
 
-  lint-staged@15.2.10:
+  lint-staged@15.2.11:
     dependencies:
       chalk: 5.3.0
       commander: 12.1.0
-      debug: 4.3.7
+      debug: 4.4.0
       execa: 8.0.1
       lilconfig: 3.1.3
       listr2: 8.2.5
       micromatch: 4.0.8
       pidtree: 0.6.0
       string-argv: 0.3.2
-      yaml: 2.5.1
+      yaml: 2.6.1
     transitivePeerDependencies:
       - supports-color
 
@@ -6360,9 +6347,9 @@ snapshots:
 
   punycode@2.3.1: {}
 
-  puppeteer-core@23.10.2:
+  puppeteer-core@23.10.4:
     dependencies:
-      '@puppeteer/browsers': 2.6.0
+      '@puppeteer/browsers': 2.6.1
       chromium-bidi: 0.8.0(devtools-protocol@0.0.1367902)
       debug: 4.4.0
       devtools-protocol: 0.0.1367902
@@ -6710,13 +6697,13 @@ snapshots:
 
   util-deprecate@1.0.2: {}
 
-  vite-node@2.1.8(@types/node@22.10.1):
+  vite-node@2.1.8(@types/node@22.10.2):
     dependencies:
       cac: 6.7.14
       debug: 4.4.0
       es-module-lexer: 1.5.4
       pathe: 1.1.2
-      vite: 5.4.11(@types/node@22.10.1)
+      vite: 5.4.11(@types/node@22.10.2)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -6728,19 +6715,19 @@ snapshots:
       - supports-color
       - terser
 
-  vite@5.4.11(@types/node@22.10.1):
+  vite@5.4.11(@types/node@22.10.2):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.49
       rollup: 4.28.1
     optionalDependencies:
-      '@types/node': 22.10.1
+      '@types/node': 22.10.2
       fsevents: 2.3.3
 
-  vitest@2.1.8(@types/node@22.10.1):
+  vitest@2.1.8(@types/node@22.10.2):
     dependencies:
       '@vitest/expect': 2.1.8
-      '@vitest/mocker': 2.1.8(vite@5.4.11(@types/node@22.10.1))
+      '@vitest/mocker': 2.1.8(vite@5.4.11(@types/node@22.10.2))
       '@vitest/pretty-format': 2.1.8
       '@vitest/runner': 2.1.8
       '@vitest/snapshot': 2.1.8
@@ -6756,11 +6743,11 @@ snapshots:
       tinyexec: 0.3.1
       tinypool: 1.0.2
       tinyrainbow: 1.2.0
-      vite: 5.4.11(@types/node@22.10.1)
-      vite-node: 2.1.8(@types/node@22.10.1)
+      vite: 5.4.11(@types/node@22.10.2)
+      vite-node: 2.1.8(@types/node@22.10.2)
       why-is-node-running: 2.3.0
     optionalDependencies:
-      '@types/node': 22.10.1
+      '@types/node': 22.10.2
     transitivePeerDependencies:
       - less
       - lightningcss
@@ -6814,7 +6801,7 @@ snapshots:
 
   yallist@4.0.0: {}
 
-  yaml@2.5.1: {}
+  yaml@2.6.1: {}
 
   yargs-parser@21.1.1: {}
 
