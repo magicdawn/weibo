@@ -15,6 +15,12 @@ import { updateMblogFor } from './update'
 createDebug.enable('weibo:*')
 createDebug.enable('weibo:*,-weibo:api:detail:*')
 
+// TODO: add cli commands
+// - update for uid
+// - list users
+// - set user.scheduleUpdate
+// - update all scheduleUpdate = true users
+
 async function ensureCookie() {
   await startPptr()
   if (!WEIBO_COOKIE) {

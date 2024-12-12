@@ -19,6 +19,9 @@ importers:
       better-sqlite3:
         specifier: ^11.7.0
         version: 11.7.0
+      clipanion:
+        specifier: 4.0.0-rc.4
+        version: 4.0.0-rc.4(typanion@3.14.0)
       dayjs:
         specifier: ^1.11.13
         version: 1.11.13
@@ -1874,6 +1877,14 @@ packages:
         integrity: sha512-nPdaFdQ0h/GEigbPClz11D0v/ZJEwxmeVZGeMo3Z5StPtUTkA9o1lD6QwoirYiSDzbcwn2XcjwmCp68W1IS4TA==,
       }
     engines: { node: '>=18' }
+
+  clipanion@4.0.0-rc.4:
+    resolution:
+      {
+        integrity: sha512-CXkMQxU6s9GklO/1f714dkKBMu1lopS1WFF0B8o4AxPykR1hpozxSiUZ5ZUeBjfPgCWqbcNOtZVFhB8Lkfp1+Q==,
+      }
+    peerDependencies:
+      typanion: '*'
 
   cliui@8.0.1:
     resolution:
@@ -4109,6 +4120,12 @@ packages:
         integrity: sha512-McnNiV1l8RYeY8tBgEpuodCC1mLUdbSN+CYBL7kJsJNInOP8UjDDEwdk6Mw60vdLLrr5NHKZhMAOSrR2NZuQ+w==,
       }
 
+  typanion@3.14.0:
+    resolution:
+      {
+        integrity: sha512-ZW/lVMRabETuYCd9O9ZvMhAh8GslSqaUjxmK/JLPCh6l73CvLBiuXswj/+7LdnWOgYsQ130FqLzFz5aGT4I3Ug==,
+      }
+
   type-check@0.4.0:
     resolution:
       {
@@ -5283,6 +5300,10 @@ snapshots:
     dependencies:
       slice-ansi: 5.0.0
       string-width: 7.2.0
+
+  clipanion@4.0.0-rc.4(typanion@3.14.0):
+    dependencies:
+      typanion: 3.14.0
 
   cliui@8.0.1:
     dependencies:
@@ -6659,6 +6680,8 @@ snapshots:
   tunnel-agent@0.6.0:
     dependencies:
       safe-buffer: 5.2.1
+
+  typanion@3.14.0: {}
 
   type-check@0.4.0:
     dependencies:

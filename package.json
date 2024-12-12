@@ -53,6 +53,7 @@
     "@puppeteer/browsers": "^2.6.1",
     "axios": "^1.7.9",
     "better-sqlite3": "^11.7.0",
+    "clipanion": "4.0.0-rc.4",
     "dayjs": "^1.11.13",
     "debug": "^4.4.0",
     "dl-vampire": "^2.1.2",

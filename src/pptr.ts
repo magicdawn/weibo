@@ -17,10 +17,15 @@ export let SERVER_VERSION = ''
 export let browser: Browser
 
 export async function startPptr() {
-  const executablePath = computeSystemExecutablePath({
-    browser: SystemBrowser.CHROME,
-    channel: ChromeReleaseChannel.STABLE,
-  })
+  let executablePath: string
+  if (process.env.PPTR_EXECUTABLE_PATH) {
+    executablePath = process.env.PPTR_EXECUTABLE_PATH
+  } else {
+    executablePath = computeSystemExecutablePath({
+      browser: SystemBrowser.CHROME,
+      channel: ChromeReleaseChannel.STABLE,
+    })
+  }
   const userDataDir = path.join(appPaths.data, 'pptr-data')
 
   debug('launch: executablePath = %s, userDataDir = %s', executablePath, userDataDir)
