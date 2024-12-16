@@ -1,5 +1,5 @@
 import { and, asc, eq } from 'drizzle-orm'
-import { currentDB } from '../db/db'
+import { getCurrentDB } from '../db/db'
 import { associateMblogTable, mblogTable, userTable } from '../db/schema'
 import { getMiniBlog, transformMblog } from '../api/mblog'
 import type { RawMblogItem } from '../api/types/mblog'
@@ -14,13 +14,13 @@ const debug = baseDebug.extend('update')
 
 export async function updateMblogFor(uid: number) {
   const getExistingIdsAsc = async () => {
-    const list1 = await currentDB!
+    const list1 = await getCurrentDB()
       .select({ id: mblogTable.id })
       .from(mblogTable)
       .where(eq(mblogTable.uid, uid))
       .orderBy(asc(mblogTable.id))
 
-    const list2 = await currentDB!
+    const list2 = await getCurrentDB()
       .select({ id: associateMblogTable.id })
       .from(associateMblogTable)
       .where(eq(associateMblogTable.uid, uid))
@@ -78,7 +78,7 @@ async function performIncrementalUpdate(uid: number, existingIds: number[]) {
 
   // download
   {
-    const user = await currentDB!.query.user.findFirst({ where: eq(userTable.uid, uid) })
+    const user = await getCurrentDB().query.user.findFirst({ where: eq(userTable.uid, uid) })
     if (!user) throw new Error('user not found')
     for (const item of newItems) {
       await downloadMblogImgs(user!, transformMblog(item))
@@ -196,7 +196,7 @@ async function performFullUpdate(uid: number) {
 
   // download
   {
-    const user = await currentDB!.query.user.findFirst({ where: eq(userTable.uid, uid) })
+    const user = await getCurrentDB().query.user.findFirst({ where: eq(userTable.uid, uid) })
     if (!user) throw new Error('user not found')
     for (const item of items) {
       await downloadMblogImgs(user, transformMblog(item))
@@ -215,7 +215,7 @@ async function insertItemToDB(item: RawMblogItem, uid: number) {
 
   const belongsToCurrentUser = transformedItem.uid === uid
   if (belongsToCurrentUser) {
-    return await currentDB!
+    return await getCurrentDB()
       .insert(mblogTable)
       .values(transformedItem)
       .onConflictDoUpdate({
@@ -235,7 +235,7 @@ async function insertItemToDB(item: RawMblogItem, uid: number) {
 
   // uid 时间线上不属于他的微博
   // console.log('uid mismatch: uid=%s, transformedItem=%O', uid, transformedItem)
-  return await currentDB!
+  return await getCurrentDB()
     .insert(associateMblogTable)
     .values({ ...transformedItem, uid }) // 此表 uid 表示关联的 uid, 并不是微博作者的 uid
     .onConflictDoUpdate({

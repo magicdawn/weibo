@@ -6,10 +6,11 @@
     "weibo": "./src/cli.ts"
   },
   "scripts": {
-    "test": "vitest run",
     "prepare": "husky",
+    "test": "vitest run",
     "test:dev": "vitest",
-    "test-cover": "vitest run --coverage"
+    "test-cover": "vitest run --coverage",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",

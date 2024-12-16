@@ -1,7 +1,13 @@
 import { drizzle } from 'drizzle-orm/better-sqlite3'
 import { mblogTable, userTable } from './schema'
+import assert from 'node:assert'
 
-export let currentDB: ReturnType<typeof initDb> | undefined
+let currentDB: ReturnType<typeof initDb> | undefined
+
+export function getCurrentDB() {
+  assert(currentDB, 'db not init')
+  return currentDB
+}
 
 export function initDb(dbfile: string) {
   const db = drizzle(dbfile, {
