@@ -14,27 +14,19 @@ const debug = baseDebug.extend('update')
 
 export async function updateMblogFor(uid: number) {
   const getExistingIdsAsc = async () => {
-    const list1 = (
-      await currentDB!
-        .select({ id: mblogTable.id })
-        .from(mblogTable)
-        .where(eq(mblogTable.uid, uid))
-        .orderBy(asc(mblogTable.id))
-    ).map((x) => x.id)
+    const list1 = await currentDB!
+      .select({ id: mblogTable.id })
+      .from(mblogTable)
+      .where(eq(mblogTable.uid, uid))
+      .orderBy(asc(mblogTable.id))
 
-    const list2 = (
-      await currentDB!
-        .select({ id: associateMblogTable.id })
-        .from(associateMblogTable)
-        .where(eq(associateMblogTable.uid, uid))
-        .orderBy(asc(associateMblogTable.id))
-    ).map((x) => x.id)
+    const list2 = await currentDB!
+      .select({ id: associateMblogTable.id })
+      .from(associateMblogTable)
+      .where(eq(associateMblogTable.uid, uid))
+      .orderBy(asc(associateMblogTable.id))
 
-    return orderBy(
-      [...list1, ...list2].map((x) => ({ id: x })),
-      [(x) => x.id],
-      ['asc'],
-    ).map((x) => x.id)
+    return orderBy([...list1, ...list2], ['id'], ['asc']).map((x) => x.id)
   }
 
   {

@@ -14,3 +14,7 @@ coverage.*
 /lib
 
 /bak
+
+bin/
+obj/
+dist/
