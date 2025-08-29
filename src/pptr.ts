@@ -39,17 +39,18 @@ export async function startPptr(moreOptions: Partial<LaunchOptions> = {}) {
     waitUntil: 'load',
   })
 
-  function logined() {
+  function getLoginState() {
     return page.evaluate(() => {
       const loginButton = Array.from(document.querySelectorAll('.woo-box-flex > a[class*=LoginBtn_btn_]')).find(
-        (x) => x.textContent.trim() === '登录',
+        (x) => x.textContent.trim() === '登录/注册',
       )
       return !loginButton
     })
   }
 
-  if (!(await logined())) {
-    console.log('click login button')
+  let logined = await getLoginState()
+  if (!logined) {
+    debug('click login button')
     await page.evaluate(() => {
       document.querySelector('.woo-box-flex > a[class*=LoginBtn_btn_]')?.click()
     })
@@ -58,12 +59,16 @@ export async function startPptr(moreOptions: Partial<LaunchOptions> = {}) {
 
   // set versions
   const versions = await page.evaluate(() => {
-    return (window as any).$VERSION as { CLIENT: string; SERVER: string }
+    return (window as any).$VERSION as { CLIENT: string; SERVER: string } | undefined
   })
-  CLIENT_VERSION = versions.CLIENT
-  SERVER_VERSION = versions.SERVER
+  if (versions) {
+    CLIENT_VERSION = versions.CLIENT
+    SERVER_VERSION = versions.SERVER
+  }
 
-  if (await logined()) {
+  logined = await getLoginState()
+  if (logined) {
+    debug('logined: saving cookies')
     const cookies = (await browser.cookies())
       .filter((x) => x.domain === 'weibo.com' || x.domain.endsWith('.weibo.com'))
       .map((x) => `${x.name}=${x.value}`)

@@ -31,6 +31,7 @@
     "dl-vampire": "^2.1.6",
     "drizzle-orm": "^0.44.5",
     "env-paths": "^3.0.0",
+    "es-main": "^1.4.0",
     "es-toolkit": "^1.39.10",
     "filenamify": "^6.0.0",
     "fs-extra": "^11.3.1",

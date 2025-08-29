@@ -16,7 +16,7 @@ export const request = axios.create({
   httpsAgent: proxyAgent,
   headers: {
     'user-agent':
-      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.142.86 Safari/537.36',
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36',
     'x-requested-with': 'XMLHttpRequest',
   },
 })
@@ -45,6 +45,7 @@ function getExtraHeaders({
   return {
     'client-version': clientVersion,
     'server-version': serverVersion,
+    'referer': 'https://weibo.com/',
     'x-xsrf-token': getXsrfToken(cookie),
     cookie,
   }
@@ -83,5 +84,6 @@ export async function handleRateLimitError<T extends unknown[], R extends AxiosR
     ;[err, res] = await attemptAsync(() => fn(...args))
   }
 
+  if (err) throw err
   return res!
 }

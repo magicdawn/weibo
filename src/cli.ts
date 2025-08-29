@@ -3,6 +3,7 @@
 import path from 'node:path'
 import createDebug from 'debug'
 import { eq } from 'drizzle-orm'
+import esMain from 'es-main'
 import { delay } from 'es-toolkit'
 import ms from 'ms'
 import { getUserProfile, transformUser } from './api/user-info'
@@ -53,10 +54,12 @@ async function updateFor(uid: number) {
   await updateMblogFor(uid)
 }
 
-const argv = process.argv.slice(2)
-if (argv.length > 0) {
-  await ensureCookie()
-  for (const arg of argv) {
-    await updateFor(Number(arg))
+if (esMain(import.meta)) {
+  const argv = process.argv.slice(2)
+  if (argv.length > 0) {
+    await ensureCookie()
+    for (const arg of argv) {
+      await updateFor(Number(arg))
+    }
   }
 }
