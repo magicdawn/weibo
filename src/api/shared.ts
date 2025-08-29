@@ -1,7 +1,6 @@
 import axios, { AxiosError, type AxiosResponse } from 'axios'
-import { delay } from 'es-toolkit'
+import { attemptAsync, delay } from 'es-toolkit'
 import { ProxyAgent } from 'proxy-agent'
-import { tryit } from 'radash'
 import { baseDebug } from '../common'
 import { CLIENT_VERSION, SERVER_VERSION, WEIBO_COOKIE } from '../pptr'
 
@@ -69,19 +68,19 @@ export async function handleRateLimitError<T extends unknown[], R extends AxiosR
   fn: (...args: T) => Promise<R>,
   ...args: T
 ) {
-  const isRateLimitError = (err: Error) =>
+  const isRateLimitError = (err: any) =>
     err instanceof AxiosError && err.response && rateLimitReached(err.response.status, err.response.data.toString())
 
   let waitInterval = 5_000
   const maxWaitInterval = 60_000
 
-  let [err, res] = await tryit(fn)(...args)
+  let [err, res] = await attemptAsync(() => fn(...args))
   while (err && isRateLimitError(err)) {
     waitInterval *= 2
     if (waitInterval > maxWaitInterval) waitInterval = maxWaitInterval
     debug('rate limit reached in %s, waiting for %d seconds...', fnlabel, waitInterval / 1000)
     await delay(waitInterval)
-    ;[err, res] = await tryit(fn)(...args)
+    ;[err, res] = await attemptAsync(() => fn(...args))
   }
 
   return res!
