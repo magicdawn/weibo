@@ -1,9 +1,9 @@
-import { CLIENT_VERSION, SERVER_VERSION, WEIBO_COOKIE } from '../pptr'
 import axios, { AxiosError, type AxiosResponse } from 'axios'
 import { delay } from 'es-toolkit'
 import { ProxyAgent } from 'proxy-agent'
 import { tryit } from 'radash'
 import { baseDebug } from '../common'
+import { CLIENT_VERSION, SERVER_VERSION, WEIBO_COOKIE } from '../pptr'
 
 const debug = baseDebug.extend('api:shared')
 
@@ -70,12 +70,10 @@ export async function handleRateLimitError<T extends unknown[], R extends AxiosR
   ...args: T
 ) {
   const isRateLimitError = (err: Error) =>
-    err instanceof AxiosError &&
-    err.response &&
-    rateLimitReached(err.response.status, err.response.data.toString())
+    err instanceof AxiosError && err.response && rateLimitReached(err.response.status, err.response.data.toString())
 
   let waitInterval = 5_000
-  let maxWaitInterval = 60_000
+  const maxWaitInterval = 60_000
 
   let [err, res] = await tryit(fn)(...args)
   while (err && isRateLimitError(err)) {

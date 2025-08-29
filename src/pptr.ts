@@ -1,12 +1,8 @@
-import path from 'path'
+import path from 'node:path'
+import { ChromeReleaseChannel, computeSystemExecutablePath, Browser as SystemBrowser } from '@puppeteer/browsers'
 import { launch, type Browser, type LaunchOptions } from 'puppeteer-core'
-import type {} from 'typed-query-selector'
 import { appPaths, baseDebug } from './common'
-import {
-  ChromeReleaseChannel,
-  computeSystemExecutablePath,
-  Browser as SystemBrowser,
-} from '@puppeteer/browsers'
+import type {} from 'typed-query-selector'
 
 const debug = baseDebug.extend('pptr')
 
@@ -43,11 +39,11 @@ export async function startPptr(moreOptions: Partial<LaunchOptions> = {}) {
     waitUntil: 'load',
   })
 
-  async function logined() {
+  function logined() {
     return page.evaluate(() => {
-      const loginButton = Array.from(
-        document.querySelectorAll('.woo-box-flex > a[class*=LoginBtn_btn_]'),
-      ).filter((x) => x.innerText.trim() === '登录')[0]
+      const loginButton = Array.from(document.querySelectorAll('.woo-box-flex > a[class*=LoginBtn_btn_]')).find(
+        (x) => x.textContent.trim() === '登录',
+      )
       return !loginButton
     })
   }

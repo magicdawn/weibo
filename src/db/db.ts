@@ -1,6 +1,6 @@
+import assert from 'node:assert'
 import { drizzle } from 'drizzle-orm/better-sqlite3'
 import { mblogTable, userTable } from './schema'
-import assert from 'node:assert'
 
 let currentDB: ReturnType<typeof initDb> | undefined
 

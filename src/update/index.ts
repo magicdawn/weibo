@@ -1,14 +1,14 @@
+import path from 'node:path'
+import KeyvSqlite from '@keyv/sqlite'
 import { and, asc, eq } from 'drizzle-orm'
+import { isEqual, orderBy } from 'es-toolkit'
+import Keyv from 'keyv'
+import { getMiniBlog, transformMblog } from '../api/mblog'
+import { appPaths, baseDebug } from '../common'
 import { getCurrentDB } from '../db/db'
 import { associateMblogTable, mblogTable, userTable } from '../db/schema'
-import { getMiniBlog, transformMblog } from '../api/mblog'
-import type { RawMblogItem } from '../api/types/mblog'
-import Keyv from 'keyv'
-import KeyvSqlite from '@keyv/sqlite'
-import path from 'path'
-import { appPaths, baseDebug } from '../common'
-import { isEqual, orderBy } from 'es-toolkit'
 import { downloadMblogImgs } from '../download'
+import type { RawMblogItem } from '../api/types/mblog'
 
 const debug = baseDebug.extend('update')
 
@@ -50,15 +50,10 @@ async function performIncrementalUpdate(uid: number, existingIds: number[]) {
   let page = 1
   let sinceId: string | undefined = undefined
   let hasMore = true
-  let items: RawMblogItem[] = []
+  const items: RawMblogItem[] = []
 
   while (hasMore) {
-    const {
-      sinceId: nextSinceId,
-      hasMore: nextHasMore,
-      list,
-      total,
-    } = await getMiniBlog(uid, page, sinceId)
+    const { sinceId: nextSinceId, hasMore: nextHasMore, list, total } = await getMiniBlog(uid, page, sinceId)
     sinceId = nextSinceId
     hasMore = nextHasMore
     items.push(...list)
@@ -171,12 +166,7 @@ async function performFullUpdate(uid: number) {
   }
 
   while (hasMore) {
-    const {
-      sinceId: nextSinceId,
-      hasMore: nextHasMore,
-      list,
-      total,
-    } = await getMiniBlog(uid, page, sinceId)
+    const { sinceId: nextSinceId, hasMore: nextHasMore, list, total } = await getMiniBlog(uid, page, sinceId)
     sinceId = nextSinceId
     hasMore = nextHasMore
     items.push(...list)
@@ -248,9 +238,6 @@ async function insertItemToDB(item: RawMblogItem, uid: number) {
         raw: transformedItem.raw,
         mblogCreatedAt: transformedItem.mblogCreatedAt,
       },
-      setWhere: and(
-        eq(associateMblogTable.id, transformedItem.id),
-        eq(associateMblogTable.uid, uid),
-      ),
+      setWhere: and(eq(associateMblogTable.id, transformedItem.id), eq(associateMblogTable.uid, uid)),
     })
 }

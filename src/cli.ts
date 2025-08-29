@@ -1,15 +1,15 @@
 #!/usr/bin/env tsx
 
-import { browser, startPptr, WEIBO_COOKIE } from './pptr'
+import path from 'node:path'
+import createDebug from 'debug'
+import { eq } from 'drizzle-orm'
 import { delay } from 'es-toolkit'
 import ms from 'ms'
-import path from 'path'
-import { fse } from './libs'
-import { initDb } from './db/db'
-import { eq } from 'drizzle-orm'
-import { userTable } from './db/schema'
 import { getUserProfile, transformUser } from './api/user-info'
-import createDebug from 'debug'
+import { initDb } from './db/db'
+import { userTable } from './db/schema'
+import { fse } from './libs'
+import { browser, startPptr, WEIBO_COOKIE } from './pptr'
 import { updateMblogFor } from './update'
 
 createDebug.enable('weibo:*')

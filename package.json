@@ -1,9 +1,17 @@
 {
   "name": "@magicdawn/weibo",
   "version": "1.0.0",
+  "packageManager": "pnpm@10.15.0+sha512.486ebc259d3e999a4e8691ce03b5cac4a71cbeca39372a9b762cb500cfdf0873e2cb16abe3d951b1ee2cf012503f027b98b6584e4df22524e0c7450d9ec7aa7b",
+  "description": "",
   "type": "module",
+  "keywords": [],
+  "license": "MIT",
+  "author": "",
   "bin": {
     "weibo": "./src/cli.ts"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
     "prepare": "husky",
@@ -11,43 +19,6 @@
     "test:dev": "vitest",
     "test-cover": "vitest run --coverage",
     "typecheck": "tsc --noEmit"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "MIT",
-  "description": "",
-  "packageManager": "pnpm@10.15.0+sha512.486ebc259d3e999a4e8691ce03b5cac4a71cbeca39372a9b762cb500cfdf0873e2cb16abe3d951b1ee2cf012503f027b98b6584e4df22524e0c7450d9ec7aa7b",
-  "devDependencies": {
-    "@magicdawn/prettier-config": "^0.1.0",
-    "@swc/core": "^1.13.5",
-    "@types/better-sqlite3": "^7.6.13",
-    "@types/debug": "^4.1.12",
-    "@types/fs-extra": "^11.0.4",
-    "@types/ms": "^2.1.0",
-    "@types/node": "^24.3.0",
-    "@typescript-eslint/eslint-plugin": "^8.41.0",
-    "@typescript-eslint/parser": "^8.41.0",
-    "@vitest/coverage-v8": "^3.2.4",
-    "drizzle-kit": "^0.31.4",
-    "eslint": "^9.34.0",
-    "eslint-config-prettier": "^10.1.8",
-    "husky": "^9.1.7",
-    "lint-staged": "^16.1.5",
-    "prettier": "^3.6.2",
-    "typed-query-selector": "^2.12.0",
-    "typescript": "^5.9.2",
-    "vitest": "^3.2.4"
-  },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "lint-staged": {
-    "**/*": [
-      "prettier --write --ignore-unknown"
-    ],
-    "*.{js,jsx,ts,tsx,less,md}": [
-      "prettier --write"
-    ]
   },
   "dependencies": {
     "@keyv/sqlite": "^4.0.5",
@@ -71,12 +42,50 @@
     "puppeteer-core": "^24.17.1",
     "radash": "^12.1.1"
   },
+  "devDependencies": {
+    "@magicdawn/eslint-config": "^1.5.9",
+    "@magicdawn/prettier-config": "^0.1.0",
+    "@swc/core": "^1.13.5",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/debug": "^4.1.12",
+    "@types/fs-extra": "^11.0.4",
+    "@types/ms": "^2.1.0",
+    "@types/node": "^24.3.0",
+    "@typescript-eslint/eslint-plugin": "^8.41.0",
+    "@typescript-eslint/parser": "^8.41.0",
+    "@vitest/coverage-v8": "^3.2.4",
+    "drizzle-kit": "^0.31.4",
+    "eslint": "^9.34.0",
+    "eslint-config-prettier": "^10.1.8",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.5",
+    "prettier": "^3.6.2",
+    "typed-query-selector": "^2.12.0",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  },
   "pnpm": {
     "onlyBuiltDependencies": [
       "@swc/core",
       "better-sqlite3",
       "esbuild",
-      "sqlite3"
+      "sqlite3",
+      "unrs-resolver"
+    ]
+  },
+  "lint-staged": {
+    "**/*": [
+      "prettier --write --ignore-unknown"
+    ],
+    "*.{js,jsx,ts,tsx,less,md}": [
+      "prettier --write"
+    ],
+    "*.{?(c|m)(j|t)s?(x),json,y?(a)ml}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "!*.{?(c|m)(j|t)s?(x),json,y?(a)ml}": [
+      "prettier --write --ignore-unknown"
     ]
   }
 }
