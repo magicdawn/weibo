@@ -25,8 +25,8 @@ export async function downloadMblogImgs(user: UserSelect, mblog: TransformedMblo
 
   const queue: [index: number, url: string][] = []
   for (const [index, picUrl] of mblog.picUrls.entries()) {
-    const { pic, livephoto } = picUrl
-    const urls = [pic, livephoto].filter((x) => typeof x !== 'undefined').filter((x) => !!x)
+    const { pic, livephoto, video } = picUrl
+    const urls = [pic, livephoto, video].filter(Boolean)
     urls.forEach((url) => {
       queue.push([index, url])
     })
@@ -52,10 +52,7 @@ export async function downloadMblogImgs(user: UserSelect, mblog: TransformedMblo
         file,
         useHeadRequestToFetchExpectSize: isLivePhoto ? false : undefined, // livephoto 不能 HEAD
         requestOptions: {
-          headers: {
-            ...COMMON_HEADERS,
-            cookie: WEIBO_COOKIE,
-          },
+          headers: { ...COMMON_HEADERS, cookie: WEIBO_COOKIE },
         },
         retry: {
           times: 5,
