@@ -1,3 +1,4 @@
+import { inspect } from 'node:util'
 import { baseDebug } from '../common'
 import { handleRateLimitError, request } from './shared'
 import type { MblogJson, RawMblogItem } from './types/mblog'
@@ -50,19 +51,27 @@ export function transformMblog(mblog: RawMblogItem) {
 
     // 图文
     text: mblog.text_raw,
-    picUrls: mblog.pic_ids.map((picId) => {
-      const info = mblog.pic_infos![picId]
-      if (info.type === 'livephoto') {
-        return {
-          livephoto: info.video!, // 有效期 1 小时, 需及时下载
-          pic: info.largest.url,
+    picUrls: mblog.pic_ids
+      .map((picId) => {
+        const info = mblog.pic_infos?.[picId]
+        if (!info) {
+          console.error('pic info not found', picId, inspect(mblog, { depth: null }))
+          // TODO: 混合内容使用 mix_media_info 呈现
+          return
         }
-      } else {
-        return {
-          pic: info.largest.url,
+
+        if (info.type === 'livephoto') {
+          return {
+            livephoto: info.video!, // 有效期 1 小时, 需及时下载
+            pic: info.largest.url,
+          }
+        } else {
+          return {
+            pic: info.largest.url,
+          }
         }
-      }
-    }),
+      })
+      .filter(Boolean),
 
     // attr
     isRepost: !!mblog.retweeted_status, // 是否转发

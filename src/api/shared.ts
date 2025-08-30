@@ -8,6 +8,14 @@ const debug = baseDebug.extend('api:shared')
 
 export const proxyAgent = new ProxyAgent()
 
+export const USING_UA =
+  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36'
+
+export const COMMON_HEADERS = {
+  'user-agent': USING_UA,
+  'referer': 'https://weibo.com/',
+}
+
 export const request = axios.create({
   baseURL: 'https://weibo.com',
   timeout: 10000,
@@ -15,8 +23,7 @@ export const request = axios.create({
   httpAgent: proxyAgent,
   httpsAgent: proxyAgent,
   headers: {
-    'user-agent':
-      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36',
+    ...COMMON_HEADERS,
     'x-requested-with': 'XMLHttpRequest',
   },
 })
@@ -33,7 +40,7 @@ request.interceptors.request.use((config) => {
   return config
 })
 
-function getExtraHeaders({
+export function getExtraHeaders({
   clientVersion,
   serverVersion,
   cookie,
@@ -45,7 +52,6 @@ function getExtraHeaders({
   return {
     'client-version': clientVersion,
     'server-version': serverVersion,
-    'referer': 'https://weibo.com/',
     'x-xsrf-token': getXsrfToken(cookie),
     cookie,
   }

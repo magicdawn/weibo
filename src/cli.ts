@@ -1,6 +1,7 @@
 #!/usr/bin/env tsx
 
 import path from 'node:path'
+import consola from 'consola'
 import createDebug from 'debug'
 import { eq } from 'drizzle-orm'
 import esMain from 'es-main'
@@ -27,7 +28,7 @@ async function ensureCookie() {
   await browser.close()
   if (!WEIBO_COOKIE) {
     await startPptr({ headless: false })
-    console.error('cookie not found, please login first, then restart the app')
+    consola.error('cookie not found, please login first, then restart the app')
     await delay(ms('1d')) // wait login, never go next
     process.exit(1)
   }

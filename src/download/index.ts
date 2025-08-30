@@ -3,6 +3,7 @@ import dl from 'dl-vampire'
 import filenamify from 'filenamify'
 import logSymbols from 'log-symbols'
 import pmap from 'promise.map'
+import { COMMON_HEADERS } from '../api/shared'
 import { dayjs } from '../libs'
 import { WEIBO_COOKIE } from '../pptr'
 import type { TransformedMblog } from '../api/mblog'
@@ -43,12 +44,16 @@ export async function downloadMblogImgs(user: UserSelect, mblog: TransformedMblo
           })
       const file = path.join(dir, basename)
 
+      const u = new URL(url)
+      const isLivePhoto = path.extname(u.pathname) === '.mov' && u.hostname.includes('livephoto.')
+
       const { skip } = await dl({
         url,
         file,
+        useHeadRequestToFetchExpectSize: isLivePhoto ? false : undefined, // livephoto 不能 HEAD
         requestOptions: {
           headers: {
-            referer: 'https://weibo.com/',
+            ...COMMON_HEADERS,
             cookie: WEIBO_COOKIE,
           },
         },
