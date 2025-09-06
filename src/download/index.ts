@@ -1,5 +1,7 @@
 import path from 'node:path'
-import dl from 'dl-vampire'
+import consola from 'consola'
+import dl, { HTTPError, RetryError } from 'dl-vampire'
+import { attemptAsync } from 'es-toolkit'
 import filenamify from 'filenamify'
 import logSymbols from 'log-symbols'
 import pmap from 'promise.map'
@@ -44,22 +46,39 @@ export async function downloadMblogImgs(user: UserSelect, mblog: TransformedMblo
           })
       const file = path.join(dir, basename)
 
-      const u = new URL(url)
-      const isLivePhoto = path.extname(u.pathname) === '.mov' && u.hostname.includes('livephoto.')
+      const attemptDl = (useHeadRequestToFetchExpectSize?: boolean) => {
+        return attemptAsync(() =>
+          dl({
+            url,
+            file,
+            useHeadRequestToFetchExpectSize,
+            requestOptions: { headers: { ...COMMON_HEADERS, cookie: WEIBO_COOKIE } },
+            retry: { times: 5, timeout: 2 * 60_000 },
+          }),
+        )
+      }
 
-      const { skip } = await dl({
-        url,
-        file,
-        useHeadRequestToFetchExpectSize: isLivePhoto ? false : undefined, // livephoto 不能 HEAD
-        requestOptions: {
-          headers: { ...COMMON_HEADERS, cookie: WEIBO_COOKIE },
-        },
-        retry: {
-          times: 5,
-          timeout: 2 * 60_000,
-        },
-      })
-      console.log(`${logSymbols.success} dl %s %s`, skip ? 'skip' : 'success', path.relative(baseDir, file))
+      let err: any
+      let dlResult: { skip: boolean } | null
+      ;[err, dlResult] = await attemptDl()
+      if (!err) {
+        console.log(`${logSymbols.success} dl %s %s`, dlResult?.skip ? 'skip' : 'success', path.relative(baseDir, file))
+        return
+      }
+
+      if (
+        err instanceof RetryError &&
+        err.errors.every((x) => x instanceof HTTPError && x.response.statusCode === 403)
+      ) {
+        ;[err, dlResult] = await attemptDl(false) // no HEAD request
+      }
+      if (!err) {
+        console.log(`${logSymbols.success} dl %s %s`, dlResult?.skip ? 'skip' : 'success', path.relative(baseDir, file))
+        return
+      }
+
+      consola.error(err)
+      // throw err
     },
     6,
   )

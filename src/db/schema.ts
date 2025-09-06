@@ -51,7 +51,7 @@ export const mblogTable = sqliteTable(
       .notNull()
       .references(() => userTable.uid),
     text: t.text(),
-    picUrls: t.text({ mode: 'json' }).$type<Array<{ pic: string; livephoto?: string }>>(),
+    picUrls: t.text({ mode: 'json' }).$type<Array<{ pic?: string; livephoto?: string; video?: string }>>(),
     isRepost: t.integer({ mode: 'boolean' }),
     mblogid: t.text(),
     raw: t.text({ mode: 'json' }).$type<RawMblogItem>(),
@@ -80,7 +80,7 @@ export const associateMblogTable = sqliteTable(
     id: t.integer({ mode: 'number' }).notNull(),
     uid: t.integer({ mode: 'number' }).notNull(), // not foreign key anymore, 作者可能不是库里的已知用户
     text: t.text(),
-    picUrls: t.text({ mode: 'json' }).$type<Array<{ pic: string; livephoto?: string }>>(),
+    picUrls: t.text({ mode: 'json' }).$type<Array<{ pic?: string; livephoto?: string; video?: string }>>(),
     isRepost: t.integer({ mode: 'boolean' }),
     mblogid: t.text(),
     raw: t.text({ mode: 'json' }).$type<RawMblogItem>(),

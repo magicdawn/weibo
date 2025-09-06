@@ -1,9 +1,9 @@
-export interface MblogJSON {
-  data: MblogJSONData
+export interface MblogJson {
+  data: MblogJsonData
   ok: number
 }
 
-export interface MblogJSONData {
+export interface MblogJsonData {
   since_id: string
   list: RawMblogItem[]
   status_visible: number
