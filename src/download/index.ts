@@ -46,13 +46,13 @@ export async function downloadMblogImgs(user: UserSelect, mblog: TransformedMblo
           })
       const file = path.join(dir, basename)
 
-      const attemptDl = (useHeadRequestToFetchExpectSize?: boolean) => {
+      const attemptDl = (useHeadRequestToFetchExpectSize?: boolean, cookie: boolean = true) => {
         return attemptAsync(() =>
           dl({
             url,
             file,
             useHeadRequestToFetchExpectSize,
-            requestOptions: { headers: { ...COMMON_HEADERS, cookie: WEIBO_COOKIE } },
+            requestOptions: { headers: { ...COMMON_HEADERS, cookie: cookie ? WEIBO_COOKIE : undefined } },
             retry: { times: 5, timeout: 2 * 60_000 },
           }),
         )
@@ -77,7 +77,18 @@ export async function downloadMblogImgs(user: UserSelect, mblog: TransformedMblo
         return
       }
 
-      consola.error(err)
+      if (
+        err instanceof RetryError &&
+        err.errors.every((x) => x instanceof HTTPError && x.response.statusCode === 403)
+      ) {
+        ;[err, dlResult] = await attemptDl(false, false) // no HEAD request, no cookie
+      }
+      if (!err) {
+        console.log(`${logSymbols.success} dl %s %s`, dlResult?.skip ? 'skip' : 'success', path.relative(baseDir, file))
+        return
+      }
+
+      consola.error('err', err)
       // throw err
     },
     6,
