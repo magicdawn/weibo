@@ -6,6 +6,10 @@ import type { MblogJson, RawMblogItem } from './types/mblog'
 const debug = baseDebug.extend('api:mblog')
 const debugDetail = baseDebug.extend('api:detail:mblog')
 
+/**
+ * `statusCode:432`: http 规范未指定, 但是在 weibo.com 会碰到; 在 weibo.com 网页版也不行, 一直 loading
+ * 网页端删除 weibo.com cookie, 再次启动, 会重新生成 XSRF-TOKEN; 不用再次登录.
+ */
 export async function getMiniBlog(uid: number | string, page: number, paramSinceId?: string) {
   debugDetail('getMiniBlog(): uid=%s, page=%s, sinceId=%s', uid, page, paramSinceId)
   // https://weibo.com/ajax/statuses/mymblog?uid=5796662600&page=1&feature=0
