@@ -48,7 +48,7 @@ export async function updateMblogFor(uid: number) {
  */
 async function performIncrementalUpdate(uid: number, existingIds: number[]) {
   let page = 1
-  let sinceId: string | undefined = undefined
+  let sinceId: string | undefined
   let hasMore = true
   const items: RawMblogItem[] = []
 
@@ -149,7 +149,7 @@ type FullUpdateState = {
  */
 async function performFullUpdate(uid: number) {
   let page = 1
-  let sinceId: string | undefined = undefined
+  let sinceId: string | undefined
   let hasMore = true
   let items: RawMblogItem[] = []
 

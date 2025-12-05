@@ -59,7 +59,7 @@ export async function startPptr(moreOptions: Partial<LaunchOptions> = {}) {
 
   // set versions
   const versions = await page.evaluate(() => {
-    return (window as any).$VERSION as { CLIENT: string; SERVER: string } | undefined
+    return (globalThis as any).$VERSION as { CLIENT: string; SERVER: string } | undefined
   })
   if (versions) {
     CLIENT_VERSION = versions.CLIENT
